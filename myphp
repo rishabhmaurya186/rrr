@@ -50,7 +50,12 @@
 
 <div class="container" class="mb-3">
 
-<form action="/rishabh/poject.php" method="post" >
+<form action="/rrr/project.php" method="post" >
+<div class="mb-3">
+    <label for="sno" class="form-label">Sno</label>
+    <input type="text" class="form-control" id="sno"  name ="sno"aria-describedby="emailHelp">
+    
+  </div>
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
     <input type="text" class="form-control" id="title"  name ="title"aria-describedby="emailHelp">
@@ -82,35 +87,65 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 if($_SERVER['REQUEST_METHOD']=='POST'){
-   
+    $sno = $_POST['sno'];
     $title = $_POST['title'];
     $description = $_POST['description'];
     echo $title ;
-   $sql = "INSERT INTO `inotes` ( `title`, `des`) VALUES ('$title','$description')";
+   $sql = "INSERT INTO `inotes` ( `sno` ,title`, `des`) VALUES ('$sno','$title','$description')";
+   
    $result = mysqli_query($conn,$sql);
+  
+}
+   ?>
+    "<table class="table">
+     <thead>
+      <tr>
+      <th scope="col">sno</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>"
+ <?php 
+ $sql1 = "SELECT * FROM inotes";
+  $result1 = mysqli_query($conn,$sql1);
+ while($row = mysqli_fetch_assoc($result1)){
+    echo " <tr>
+      <th scope='row'>".$row['sno']."</th>
+      <td>".$row['title']."</td>
+      <td>".$row['des']."</td>
+   
+    </tr>";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 echo "<br> <br>";
-
-
-
-// while($row = mysqli_fetch_assoc($result)){
-//     echo "<br>";
-//     echo $row['cid']." ".$row['cname'];
-// }
 ?>
+    
+  </tbody>
+ </table>
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
